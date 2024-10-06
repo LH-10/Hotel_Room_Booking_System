@@ -49,6 +49,18 @@ BEGIN
     SET nights = DATEDIFF(check_out, check_in);
     SET total_cost = price_per_night * nights;
 END //    
+
+select * from Rooms;
+
+ALTER TABLE Customers
+ADD UNIQUE (customer_name);
+
+ALTER TABLE Bookings
+ADD CONSTRAINT bookings_ibfk_2
+FOREIGN KEY (customer_name) 
+REFERENCES Customers(customer_name);
+ 
+desc customers;
     
 
 

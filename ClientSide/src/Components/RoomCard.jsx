@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 const RoomCard = ({ room }) => (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
@@ -28,6 +28,13 @@ const RoomCard = ({ room }) => (
   );
   
   export default function RoomList() {
+    useEffect(() => {
+      async function getroom(){
+
+      }
+      getroom();
+    }, [])
+    
     const rooms = [
       { id: 1, name: "Deluxe Suite", price: 299, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" },
       { id: 2, name: "Executive Room", price: 199, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" },
