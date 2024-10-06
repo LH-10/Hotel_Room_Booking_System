@@ -1,11 +1,19 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios"
 
-const RoomCard = ({ room }) => (
+const RoomCard = ({ room }) => {
+  const img1="https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" 
+  const img2="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" 
+  const img3="https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+
+  const whichImage=room.name=="Family Room"?(img3):(room.name=="Deluxe Room"?img1:img2)
+
+  return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
-      <img src={room.image} alt={room.name} className="w-full h-48 object-cover" />
+      <img src={whichImage}   alt={room.name} className="w-full h-48 object-cover" />
       <div className="p-4">
         <h3 className="text-xl font-semibold text-gray-800 mb-2">{room.name}</h3>
-        <p className="text-2xl font-bold text-blue-600 mb-4">${room.price} <span className="text-sm font-normal text-gray-600">/ night</span></p>
+        <p className="text-2xl font-bold text-blue-600 mb-4">₹{room.price} <span className="text-sm font-normal text-gray-600">/ night</span></p>
         <div className="flex flex-wrap justify-between mb-4">
           <div className="flex items-center mr-4 mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1 text-gray-600" viewBox="0 0 20 20" fill="currentColor">
@@ -26,28 +34,37 @@ const RoomCard = ({ room }) => (
       </div>
     </div>
   );
-  
-  export default function RoomList() {
-    useEffect(() => {
-      async function getroom(){
 
+
+};
+
+export default function RoomList() {
+  const [roomDetails, setRoomDetails] = useState([])
+  useEffect(() => {
+    async function getroom() {
+      try {
+        const response = await axios.get("http://localhost:3030/getRooms")
+        if (response.data.result == "success") { console.log(response.data.roomdata.rooms) }
+        setRoomDetails(response.data.roomdata.rooms)
+        console.log(HotelRooms)
       }
-      getroom();
-    }, [])
-    
-    const rooms = [
-      { id: 1, name: "Deluxe Suite", price: 299, image: "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" },
-      { id: 2, name: "Executive Room", price: 199, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" },
-      { id: 3, name: "Family Suite", price: 349, image: "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8aG90ZWwlMjByb29tfGVufDB8fDB8fHww" },
-    ];
-  
-    return (
-      <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {rooms.map((room) => (
-            <RoomCard key={room.id} room={room} />
-          ))}
-        </div>
+      catch (err) {
+        console.log(err)
+      }
+
+    }
+    getroom();
+  }, [])
+
+
+
+  return (
+    <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {roomDetails.map((room) => (
+          <RoomCard key={room.room_id} room={{ name: room.room_name, price: room.room_price }} />
+        ))}
       </div>
-    );
+    </div>
+  );
 }
