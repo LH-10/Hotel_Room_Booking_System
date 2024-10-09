@@ -53,6 +53,9 @@ END //
 select * from Rooms;
 
 ALTER TABLE Customers
+ADD column phone_number BIGINT;
+
+ALTER TABLE Customers
 ADD UNIQUE (customer_name);
 
 ALTER TABLE Bookings
@@ -61,6 +64,7 @@ FOREIGN KEY (customer_name)
 REFERENCES Customers(customer_name);
  
 desc customers;
+
     
 
 
