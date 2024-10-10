@@ -1,6 +1,4 @@
-const db = require('./Dbconnection');  // Import the MySQL connection
-
-// Create an async function to handle the insertion
+const db = require('./Dbconnection');  
 async function insertCustomer(name,email,phno) {
   try {
     const [rows] = await db.execute('INSERT INTO Customers (customer_name, email, phone_number) VALUES (?, ?)', [name,email,phno]);
@@ -10,10 +8,6 @@ async function insertCustomer(name,email,phno) {
   }
 }
 
-// Call the function
-// insertCustomer();
-
-// Create an async function to handle the insertion
 async function insertRoom(roomName, roomPrice, roomStatus = 'Available') {
   try {
     const [rows] = await db.execute(
@@ -35,5 +29,5 @@ async function insertRoom(roomName, roomPrice, roomStatus = 'Available') {
      insertRoom('Family Room', 25000);     // ₹25,000
      insertRoom('Deluxe Room', 13500);    // ₹13,500
      insertRoom('Executive Room', 16500); // ₹16,500
-  // You can change the values as needed
+
 
