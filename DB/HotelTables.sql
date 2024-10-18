@@ -34,21 +34,53 @@ FOR EACH ROW
     SET room_status = 'Booked'
     WHERE room_id = NEW.room_id ;
     
-Delimiter //
+DELIMITER //
 CREATE PROCEDURE calculate_total_cost (
-    IN room_id INT,
+    IN input_room_id INT,
     IN check_in DATE,
     IN check_out DATE,
-    OUT total_cost DECIMAL(10, 2)
+    OUT total_cost DECIMAL(10, 0),
+    OUT nights INT
 )
 BEGIN
-    DECLARE price_per_night DECIMAL(10, 2);
-    DECLARE nights INT;
-
-    SELECT room_price INTO price_per_night FROM Rooms WHERE room_id = room_id;
+    DECLARE price_per_night DECIMAL(10, 0);
+    
+    SELECT room_price 
+    INTO price_per_night 
+    FROM Rooms 
+    WHERE room_id = input_room_id 
+    LIMIT 1;
     SET nights = DATEDIFF(check_out, check_in);
-    SET total_cost = price_per_night * nights;
-END //    
+    SET total_cost = price_per_night * nights;
+END //
+DELIMITER ;
+
+
+
+DELIMITER //
+CREATE PROCEDURE create_booking (
+    IN customer_name VARCHAR(100),
+    IN room_id INT,
+    IN check_in_date DATE,
+    IN check_out_date DATE,
+    OUT booking_id INT,
+    OUT total_cost DECIMAL(10, 0),
+    INOUT nights INT
+    
+)
+BEGIN
+
+    CALL calculate_total_cost(room_id, check_in_date, check_out_date, total_cost,nights);
+    
+
+    INSERT INTO Bookings (room_id, customer_name, check_in_date, check_out_date, total_cost)
+    VALUES (room_id, customer_name, check_in_date, check_out_date, total_cost);
+    
+    SET booking_id = LAST_INSERT_ID();
+END //
+DELIMITER ;
+
+
 
 select * from Rooms;
 
@@ -65,6 +97,31 @@ REFERENCES Customers(customer_name);
  
 desc customers;
 
-    
+truncate table Bookings;
+truncate table Customers;
+select * from Bookings;
+select * from Customers;
+select * from Rooms;
+show create table Bookings;
+ALTER TABLE Bookings
+DROP FOREIGN KEY bookings_ibfk_1;
+ALTER TABLE Bookings
+DROP FOREIGN KEY bookings_ibfk_2;
 
+ALTER TABLE Bookings
+ADD CONSTRAINT bookings_ibfk_1customers
+FOREIGN KEY (room_id) REFERENCES Rooms(room_id)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+
+ALTER TABLE Bookings
+ADD CONSTRAINT bookings_ibfk_2
+FOREIGN KEY (customer_name) REFERENCES Customers(customer_name)
+ON DELETE CASCADE
+ON UPDATE CASCADE;
+drop procedure calculate_total_cost;
+drop procedure create_booking;
+alter table Bookings add column total_cost varchar(10);
+select * from Bookings;
+delete from Rooms where room_id;
 

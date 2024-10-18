@@ -1,7 +1,7 @@
 require('dotenv').config(); 
 const nodemailer = require('nodemailer');
 
-const sendConfirmationEmail = (customerEmail, customerName, bookingDetails) => {
+const sendConfirmationEmail = (customerEmail, customerName, bookingDetails, nights, booking_id , total_cost) => {
   let transporter = nodemailer.createTransport({
     service: 'gmail', 
     auth: {
@@ -61,6 +61,9 @@ const sendConfirmationEmail = (customerEmail, customerName, bookingDetails) => {
         <p><strong>Room:</strong> ${bookingDetails.room}</p>
         <p><strong>Check-in Date:</strong> ${bookingDetails.checkinDate}</p>
         <p><strong>Check-out Date:</strong> ${bookingDetails.checkoutDate}</p>
+        <p><strong>Number of Nights:</strong> ${nights}</p>
+        <p><strong>Booking ID:</strong> ${booking_id}</p>
+        <p><strong>Total Cost:</strong> ${total_cost}</p>
         <p>We look forward to hosting you!</p>
     </div>
     <div class="footer">
