@@ -4,7 +4,7 @@ router.use(express.urlencoded({ extended:true}))
 router.use(express.json())
 const cors=require('cors')
 const sqlconnection=require('../Dbconnection')
-const sendConfirmationEmail=require('../EmailFunction')
+const emailsender=require('../EmailFunction')
 router.use(cors())
 
 async function total_costing(){
@@ -49,7 +49,7 @@ router.post('/',async(req,res)=>{
 
     await customerData(customerName,email,phoneNumber2)
     const data = await Bookingdata(customerName,roomId,checkInDate,checkOutDate,bookingStatus)
-    await sendConfirmationEmail(email,customerName,{checkoutDate:checkOutDate,checkinDate:checkInDate,room:roomId},data.nights,data.booking_id,data.total_cost)
+    await emailsender.sendConfirmationEmail(email,customerName,{checkoutDate:checkOutDate,checkinDate:checkInDate,room:roomId},data.nights,data.booking_id,data.total_cost)
     console.log(a)
     res.json({result:"success"})
     

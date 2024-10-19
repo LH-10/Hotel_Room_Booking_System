@@ -123,5 +123,13 @@ drop procedure calculate_total_cost;
 drop procedure create_booking;
 alter table Bookings add column total_cost varchar(10);
 select * from Bookings;
+delete from Bookings where booking_id=2;
 delete from Rooms where room_id;
-
+alter table Bookings add column payment_status boolean;
+ALTER TABLE Bookings 
+MODIFY COLUMN payment_status BOOLEAN DEFAULT false;
+update Bookings set payment_status=false where booking_id = 10;
+select * from Customers;
+Select Bookings.customer_name,total_cost,room_id,customers.email from Bookings join customers on Bookings.customer_name = customers.customer_name and booking_id = 10;
+desc Bookings;
+desc customers;

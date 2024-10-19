@@ -1,6 +1,6 @@
 import axios from "axios"
-import React, { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import React, { useState } from "react"
+import { useParams, useNavigate } from "react-router-dom"
 
 export default function RoomBookingForm() {
   const [formData, setFormData] = useState({
@@ -11,7 +11,9 @@ export default function RoomBookingForm() {
     email: "",
     phoneNumber: "",
   })
+  const [showPopup, setShowPopup] = useState(false)
   const { id, type, price } = useParams()
+  const navigate = useNavigate()
 
   const handleInputChange = (e) => {
     const { name, value } = e.target
@@ -23,14 +25,20 @@ export default function RoomBookingForm() {
   }
 
   const handleSubmit = async (e) => {
-    try{e.preventDefault()
-    // console.log(formData)
-    const response=await axios.post("http://localhost:3030/customerData",{...formData,roomId:parseInt(id)});
+    e.preventDefault()
+    try {
+      await axios.post("http://localhost:3030/customerData", { ...formData, roomId: parseInt(id) })
+      setShowPopup(true)
+    } catch (error) {
+      console.error(error)
+
     }
-    catch(er){
-        console.log(er)
-    }
-}
+  }
+
+  const handleClosePopup = () => {
+    setShowPopup(false)
+    navigate('/')
+  }
 
   return (
     <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-blue-100 to-purple-100 min-h-screen flex justify-center items-center">
@@ -58,9 +66,9 @@ export default function RoomBookingForm() {
                 <p className="text-gray-700"><span className="font-medium">Type:</span> {type}</p>
               </div>
               <div className="flex items-center">
-             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2M12 8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-</svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2 text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2M12 8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
                 <p className="text-gray-700"><span className="font-medium">Price:</span> ₹{price}/night</p>
               </div>
             </div>
@@ -162,6 +170,21 @@ export default function RoomBookingForm() {
           </form>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-xl max-w-sm w-full">
+            <h3 className="text-  lg font-semibold mb-4">Booking Confirmation</h3>
+            <p className="mb-6">Your booking details have been sent to your email.</p>
+            <button
+              onClick={handleClosePopup}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

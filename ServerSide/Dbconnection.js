@@ -8,14 +8,7 @@ const con = sql.createPool({
     password: process.env.PASS
   });
 
-// con.connect(function(err){
-//     if (err)
-//         { console.log("Error occured")
-//             throw err}
-//     console.log("DB COnnected")
 
-
-// })
 
 console.log()
 

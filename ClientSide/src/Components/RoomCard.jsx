@@ -82,7 +82,7 @@ export default function RoomList() {
               id: room.room_id,
               name: room.room_name, 
               price: room.room_price,
-              status: room.room_status || '' // Assuming 'available' as default if not provided
+              status: room.room_status || '' 
             }} 
           />
         ))}

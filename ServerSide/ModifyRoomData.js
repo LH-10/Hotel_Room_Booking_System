@@ -21,13 +21,13 @@ async function insertRoom(roomName, roomPrice, roomStatus = 'Available') {
 }
 
 
-     insertRoom('Deluxe Room', 1100);   // ₹11,000
-     insertRoom('Executive Room', 1500); // ₹15,000
-     insertRoom('Family Room', 2000);    // ₹20,000
-     insertRoom('Deluxe Room', 1250);    // ₹12,500
-     insertRoom('Executive Room', 1750); // ₹17,500
-     insertRoom('Family Room', 2500);     // ₹25,000
-     insertRoom('Deluxe Room', 1350);    // ₹13,500
-     insertRoom('Executive Room', 1650); // ₹16,500
+     insertRoom('Deluxe Room', 1100);   
+     insertRoom('Executive Room', 1500);
+     insertRoom('Family Room', 2000);    
+     insertRoom('Deluxe Room', 1250);    
+     insertRoom('Executive Room', 1750); 
+     insertRoom('Family Room', 2500);     
+     insertRoom('Deluxe Room', 1350);    
+     insertRoom('Executive Room', 1650); 
 
 
