@@ -10,8 +10,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
   <BrowserRouter>
   <App/>
-    {/* <ModernRoomAdminPage/> */}
-    {/* <DeleteRoomForm/> */}
+   
   </BrowserRouter>
   </StrictMode>
   

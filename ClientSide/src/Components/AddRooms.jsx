@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from "axios"
+import { Route } from 'react-router-dom';
 
 const getRef = (refType) => refType.current.value;
 
@@ -76,7 +77,7 @@ const buttonHoverStyle = {
   backgroundColor: '#2980b9',
 };
 
-export default function ModernRoomAdminPage() {
+export default function AddRooms() {
   const [newRoom, setNewRoom] = useState({
     room_name: '',
     room_price: '',
@@ -98,7 +99,7 @@ export default function ModernRoomAdminPage() {
     e.preventDefault();
     try {
         console.log(newRoom);
-        let response = await axios.post('http://localhost:3030/addrooms',newRoom)
+        let response = await axios.post('http://localhost:3030/modifyrooms/addrooms',newRoom)
         console.log(response);
         
 

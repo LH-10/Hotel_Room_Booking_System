@@ -2,9 +2,6 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 export default function LandingPage() {
-  const scrollToFeatures = () => {
-    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })
-  }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100">

@@ -6,7 +6,7 @@ const cors = require('cors')
 const sqlconnection = require('../Dbconnection')
 router.use(cors())
 
-router.post('/', async (req, res) => {
+router.post('/addrooms', async (req, res) => {
     try {
         const {room_name, room_price, room_status } = req.body;
         console.log({ room_name, room_price, room_status }); 

@@ -77,7 +77,7 @@ export default function DeleteRoomForm() {
     e.preventDefault();
     try {
       console.log(roomId);
-      let response = await axios.post('http://localhost:3030/addrooms/deleterooms',{roomId})
+      let response = await axios.post('http://localhost:3030/modifyrooms/deleterooms',{roomId})
       if (roomId) {
         console.log('Room to be deleted:', roomId);
         alert(`Room ${roomId} has been marked for deletion.`);

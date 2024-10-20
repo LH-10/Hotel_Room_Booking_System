@@ -8,7 +8,6 @@ const emailsender = require('../EmailFunction')
 router.use(cors())
 async function fetchdb(){
     const [getdetails] = await sqlconnection.execute("Select Bookings.customer_name,customer_id,payment_status,total_cost, booking_id,room_id,check_in_date,check_out_date,booking_status from Bookings inner join customers on Bookings.customer_name = customers.customer_name")
-    console.log(getdetails[0].check_in_date.toISOString().substring(0, 10));
     
 
     console.log(JSON.stringify(getdetails)+"\n");

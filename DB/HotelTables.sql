@@ -133,3 +133,6 @@ select * from Customers;
 Select Bookings.customer_name,total_cost,room_id,customers.email from Bookings join customers on Bookings.customer_name = customers.customer_name and booking_id = 10;
 desc Bookings;
 desc customers;
+
+Select booking_id,    Bookings.room_id,    customer_name, room_name,  payment_status, check_in_date, check_out_date 
+ from Bookings inner join Rooms where Bookings.room_id=Rooms.room_id and room_status='Booked';
