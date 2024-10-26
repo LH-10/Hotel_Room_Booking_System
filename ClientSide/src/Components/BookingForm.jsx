@@ -116,6 +116,7 @@ export default function RoomBookingForm() {
                   type="date"
                   value={formData.checkInDate}
                   onChange={handleInputChange}
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
@@ -129,6 +130,7 @@ export default function RoomBookingForm() {
                   type="date"
                   value={formData.checkOutDate}
                   onChange={handleInputChange}
+                  min={new Date().toISOString().split('T')[0]}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
                 />
               </div>
