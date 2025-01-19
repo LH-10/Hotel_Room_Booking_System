@@ -78,7 +78,17 @@ This is a hotel room booking system built using the technologies like React.js, 
 ## Database Setup
 
 1. Create a MySQL database with the name specified in the `.env` file.
-2. Use the provided SQL scripts (if any) to set up the required tables and relationships.
+2. Use the provided SQL scripts  to set up the required tables and relationships.
+
+## Sample Database Import
+
+To make the setup process quicker, a sample database (`exported_database.sql`) is provided in the repository. You can import this file into your MySQL database using any GUI tool such as MySQL Workbench.
+
+The database should be imported into a database named `hotel_room_booking` for the system to function properly.
+
+Once imported, the database will contain the necessary tables and sample data to get you started without needing to create the schema manually.
+
+Please ensure your `.env` file is configured correctly to connect to the `hotel_room_booking` database.
 
 ## Usage
 
